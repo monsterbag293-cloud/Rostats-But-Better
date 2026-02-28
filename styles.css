@@ -1,9 +1,13 @@
 :root {
-  --bg: #0b1020;
-  --card: #151c33;
-  --accent: #4de2b2;
-  --text: #e8f0ff;
-  --muted: #97a4c3;
+  --bg: #10131a;
+  --bg-soft: #171b24;
+  --card: #1f2531;
+  --card-soft: #232b39;
+  --border: #343d4f;
+  --text: #f2f5fb;
+  --muted: #aab4c8;
+  --primary: #00a2ff;
+  --primary-dark: #0075c4;
 }
 
 * {
@@ -13,70 +17,107 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background: radial-gradient(circle at top, #1b2650, var(--bg));
+  display: flex;
+  justify-content: center;
+  background: radial-gradient(circle at top, #1d2330 0%, var(--bg) 60%);
   color: var(--text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .app {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+  width: min(900px, 100%);
+  padding: 2rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-h1 {
-  margin-bottom: 0.3rem;
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
 }
 
-header p {
-  margin-top: 0;
+.hero p {
+  margin: 0.35rem 0 0;
   color: var(--muted);
 }
 
 .search-card,
 .profile {
-  background: color-mix(in srgb, var(--card) 92%, black);
-  border: 1px solid #2d3861;
+  background: linear-gradient(180deg, var(--card-soft), var(--card));
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1rem;
-  margin-top: 1rem;
 }
 
 label {
   display: block;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
 }
 
 .input-row {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.65rem;
 }
 
 input,
 button {
-  padding: 0.75rem 0.9rem;
-  border-radius: 10px;
-  border: 1px solid #374779;
-  background: #10162b;
-  color: var(--text);
+  border-radius: 8px;
+  border: 1px solid var(--border);
   font-size: 1rem;
 }
 
 input {
   flex: 1;
+  padding: 0.75rem 0.85rem;
+  background: var(--bg-soft);
+  color: var(--text);
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 button {
-  border-color: #4de2b2;
-  background: #143429;
+  padding: 0.75rem 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
   cursor: pointer;
 }
 
 button:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
+}
+
+.loading {
+  margin-top: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid #3d4a65;
+  border-top-color: var(--primary);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 #status {
+  margin: 0.65rem 0 0;
   min-height: 1.2rem;
   color: var(--muted);
 }
@@ -84,49 +125,67 @@ button:hover {
 .profile-header {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 0.85rem;
   margin-bottom: 1rem;
 }
 
 #avatar {
-  width: 72px;
-  height: 72px;
-  border-radius: 12px;
-  border: 1px solid #425389;
+  width: 84px;
+  height: 84px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  background: #10131a;
 }
 
-#meta {
-  color: var(--muted);
-  margin-top: 0.1rem;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 0.8rem;
-}
-
-.stat-card {
-  background: #0f152a;
-  border: 1px solid #2d3861;
-  border-radius: 12px;
-  padding: 0.8rem;
-}
-
-.stat-card h3 {
+#display-name {
   margin: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 500;
 }
 
-.number {
+#username-handle {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+}
+
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.detail-card {
+  flex: 1 1 200px;
+  background: #1a1f2a;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.detail-card-wide {
+  flex-basis: 100%;
+}
+
+.detail-card h3 {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.detail-card p {
   margin: 0.45rem 0 0;
-  font-size: 1.45rem;
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
+  line-height: 1.45;
 }
 
 .hidden {
   display: none;
+}
+
+@media (max-width: 600px) {
+  .input-row {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
 }
