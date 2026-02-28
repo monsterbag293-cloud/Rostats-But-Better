@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RoStats Live Counter</title>
+    <title>RoStats User Lookup</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="app">
-      <header>
-        <h1>RoStats Live Counter</h1>
-        <p>Track Roblox profile stats in near real-time.</p>
+      <header class="hero">
+        <h1>RoStats User Lookup</h1>
+        <p>Find Roblox account info quickly with roproxy endpoints.</p>
       </header>
 
       <section class="search-card">
@@ -18,45 +18,39 @@
           <label for="username">Roblox Username</label>
           <div class="input-row">
             <input id="username" name="username" type="text" placeholder="Enter username..." required />
-            <button type="submit">Start</button>
+            <button type="submit">Search</button>
           </div>
         </form>
+
+        <div id="loading" class="loading hidden" aria-live="polite">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>Searching...</span>
+        </div>
+
         <p id="status" role="status" aria-live="polite"></p>
       </section>
 
       <section id="profile" class="profile hidden" aria-live="polite">
         <div class="profile-header">
-          <img id="avatar" alt="Roblox avatar" />
+          <img id="avatar" alt="Roblox avatar headshot" />
           <div>
             <h2 id="display-name"></h2>
-            <p id="meta"></p>
+            <p id="username-handle"></p>
           </div>
         </div>
 
-        <div class="grid">
-          <article class="stat-card">
-            <h3>Followers</h3>
-            <p id="followers" class="number">—</p>
+        <div class="details">
+          <article class="detail-card">
+            <h3>User ID</h3>
+            <p id="user-id">—</p>
           </article>
-          <article class="stat-card">
-            <h3>Following</h3>
-            <p id="following" class="number">—</p>
+          <article class="detail-card">
+            <h3>Join Date</h3>
+            <p id="join-date">—</p>
           </article>
-          <article class="stat-card">
-            <h3>Friends</h3>
-            <p id="friends" class="number">—</p>
-          </article>
-          <article class="stat-card">
-            <h3>Total Visits</h3>
-            <p id="visits" class="number">—</p>
-          </article>
-          <article class="stat-card">
-            <h3>Active Games</h3>
-            <p id="games" class="number">—</p>
-          </article>
-          <article class="stat-card">
-            <h3>Estimated Revenue</h3>
-            <p id="revenue" class="number">—</p>
+          <article class="detail-card detail-card-wide">
+            <h3>Bio</h3>
+            <p id="bio">No bio provided.</p>
           </article>
         </div>
       </section>
